@@ -1,3 +1,5 @@
+import { createBrowserRouter, RouterProvider } from 'react-router-dom'
+
 import {
   HomeLayout,
   Landing,
@@ -12,12 +14,56 @@ import {
   Orders,
 } from './pages'
 
+const router = createBrowserRouter([
+  {
+    path: '/',
+    element: <HomeLayout />,
+    errorElement: <Error />,
+    children: [
+      {
+        index: true,
+        element: <Landing />,
+      },
+      {
+        path: 'products',
+        element: <Products />,
+      },
+      {
+        path: 'products/:id',
+        element: <SingleProduct />,
+      },
+      {
+        path: 'cart',
+        element: <Cart />,
+      },
+      {
+        path: 'checkout',
+        element: <Checkout />,
+      },
+      {
+        path: 'orders',
+        element: <Orders />,
+      },
+      {
+        path: 'about',
+        element: <About />,
+      },
+    ],
+  },
+  {
+    path: 'login',
+    element: <Login />,
+    errorElement: <Error />,
+  },
+  {
+    path: 'register',
+    element: <Register />,
+    errorElement: <Error />,
+  },
+])
+
 function App() {
-  return (
-    <>
-      <h2 className='text-7xl font-bold underline'>daisy UI</h2>
-    </>
-  )
+  return <RouterProvider router={router} />
 }
 
 export default App
