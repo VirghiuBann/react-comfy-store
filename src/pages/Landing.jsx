@@ -1,19 +1,20 @@
-import { Hero } from '../components'
+import { Hero, FeaturedProducts } from '../components'
 import { customFetch } from '../utils'
 
 const url = '/products?featured=true'
 
 export const loader = async () => {
   const response = await customFetch(url)
-  console.log(response)
-  const product = response.data.data
-  return { product }
+  console.log('loader', response)
+  const products = response.data.data
+  return { products }
 }
 
 const Landing = () => {
   return (
     <div>
       <Hero />
+      <FeaturedProducts />
     </div>
   )
 }
