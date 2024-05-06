@@ -31,7 +31,7 @@ const Navbar = () => {
         <div className='navbar-start'>
           <NavLink
             to='/'
-            className='hidden lg:flex btn btn-primary text-primary text-3xl items-center'
+            className='hidden lg:flex btn btn-primary  text-3xl items-center'
           >
             C
           </NavLink>
