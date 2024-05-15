@@ -3,5 +3,6 @@
 ## Comfy-Store
 
 - React router
+- Redux tool kit
 - TailwindCss
 - DaisyUI
