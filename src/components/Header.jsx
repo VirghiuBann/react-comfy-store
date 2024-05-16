@@ -19,7 +19,7 @@ const Header = () => {
       <div className='flex gap-x-6 justify-center items-center'>
         {user ? (
           <div className='flex gap-x-2 sm:gap-x-8 items-center'>
-            <p className='text-xs sm:text-sm'></p>
+            <p className='text-xs sm:text-sm'>{user.username}</p>
             <button
               className='btn btn-xs btn-outline btn-primary '
               onClick={handleLogout}
