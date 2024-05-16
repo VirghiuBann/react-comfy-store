@@ -1,6 +1,31 @@
-import { Form, Link } from 'react-router-dom'
+import { Form, Link, redirect } from 'react-router-dom'
 
 import { FormInput, SubmitBtn } from '../components'
+import { customFetch } from '../utils'
+import { toast } from 'react-toastify'
+import { loginUser } from '../features/user/userSlice'
+
+export const action =
+  (store) =>
+  async ({ request }) => {
+    const formData = await request.formData()
+    const data = Object.fromEntries(formData)
+
+    try {
+      const resp = await customFetch.post('/auth/local', data)
+      store.dispatch(loginUser(resp.data))
+      toast.success('logged successfully')
+
+      return redirect('/')
+    } catch (error) {
+      const errorMessage =
+        error?.response?.data?.error?.message ||
+        'please double check your credentials'
+
+      toast.error(errorMessage)
+      return null
+    }
+  }
 
 const Login = () => {
   return (
@@ -11,18 +36,8 @@ const Login = () => {
       >
         <h4 className='text-center text-3xl font-bold'>Login</h4>
 
-        <FormInput
-          type='email'
-          name='identifier'
-          defaultValue='test@test.com'
-          label='email'
-        />
-        <FormInput
-          type='password'
-          name='password'
-          defaultValue='secret'
-          label='password'
-        />
+        <FormInput type='email' name='identifier' label='email' />
+        <FormInput type='password' name='password' label='password' />
 
         <div className='mt-4'>
           <SubmitBtn text='login' />
