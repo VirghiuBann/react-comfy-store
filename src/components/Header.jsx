@@ -29,7 +29,10 @@ const Header = () => {
           </div>
         ) : (
           <div>
-            <Link to='/login' className='link link-hover text-xs sm:text-sm'>
+            <Link
+              to='/login'
+              className='link link-hover text-xs sm:text-sm mr-2'
+            >
               Sign in / Guest
             </Link>
             <Link to='/register' className='link link-hover text-xs sm:text-sm'>
