@@ -4,8 +4,25 @@ import { customFetch } from '../utils'
 import { PaginationContainer, SectionTitle, OrdersList } from '../components'
 import ComplexPagination from '../components/ComplexPagination'
 
+export const ordersQuery = (params, user) => {
+  return {
+    queryKey: [
+      'orders',
+      user.username,
+      params.page ? parseInt(params.page) : 1,
+    ],
+    queryFn: () =>
+      customFetch.get('/orders', {
+        params,
+        headers: {
+          Authorization: `Bearer ${user.token}`,
+        },
+      }),
+  }
+}
+
 export const loader =
-  (store) =>
+  (store, queryClient) =>
   async ({ request }) => {
     const user = store.getState().userState.user
 
@@ -19,12 +36,7 @@ export const loader =
     ])
 
     try {
-      const resp = await customFetch.get('/orders', {
-        params,
-        headers: {
-          Authorization: `Bearer ${user.token}`,
-        },
-      })
+      const resp = await queryClient.ensureQueryData(ordersQuery(params, user))
 
       return {
         orders: resp.data.data,
